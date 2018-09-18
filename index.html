@@ -95,23 +95,31 @@
     <a data-scroll href="#infographic" class="waves-effect waves-light btn" onclick="getData();">Run</a>
   </div>
 
-  <div class="row" id="infographic" style="display:none">
-    <div class="col m2"></div>
-    <div class="col m8">
-      <div class="card z-depth-5 center-align">
-        <div class="card-title">ROI</div>
-        <div class="card-content">
-          <div class="row">
-            <strong>ROI: Return on Investment</strong> - how much money you make based on the conditions listed above.
-          </div>
-          <div class="row">
-            <canvas id="line-chart" width="800" height="450"></canvas>
+  <div id="infographic" style="display:none">
+    <div class="row">
+      <div class="col m2"></div>
+      <div class="col m8">
+        <div class="card z-depth-5 center-align">
+          <div class="card-title">ROI</div>
+          <div class="card-content">
+            <div class="row">
+              <strong>ROI: Return on Investment</strong> - how much money you make based on the conditions listed above.
+            </div>
+            <div class="row">
+              <canvas id="line-chart" width="800" height="450"></canvas>
+            </div>
           </div>
         </div>
       </div>
+      <div class="col m2"></div>
     </div>
-    <div class="col m2"></div>
+    <div class="row">
+      <div class="row center-align">
+        <a data-scroll href="https://robertjdominguez.github.io/app-investment-calc/" class="waves-effect waves-light btn">Reset</a>
+      </div>
+    </div>
   </div>
+
 
 
   <!--  Scripts-->
