@@ -144,7 +144,7 @@
       let luck = $('#luck').val();
 
       let score = parseInt(conf) + parseInt(feas) + parseInt(tech) + parseInt(demand) + parseInt(luck);
-      let preLuck = parseInt(score) - parseInt(luck);
+      let preLuck = parseInt(conf) + parseInt(feas) + parseInt(tech) + parseInt(demand);
 
       // if-else statements to determine "score"
       if (score > 99) {
@@ -161,19 +161,21 @@
         roi = investment * .25;
       }
 
-      if (preLuck > 39) {
+      if (preLuck > 59) {
         pre_roi = investment * 3;
-      } else if (preLuck > 29 && score < 40) {
+      } else if (preLuck > 49 && preLuck < 60) {
         pre_roi = investment * 2;
-      } else if (preLuck > 19 && score < 30) {
+      } else if (preLuck > 39 && preLuck < 50) {
         pre_roi = investment * 1.5;
-      } else if (preLuck > 9 && score < 20) {
+      } else if (preLuck > 29 && preLuck < 40) {
         pre_roi = investment * 1;
-      } else if (preLuck > 0 && score < 10) {
+      } else if (preLuck > 19 && preLuck < 30) {
         pre_roi = investment * .5;
       } else {
-        pre_roi = investment * 0;
+        pre_roi = investment * .25;
       }
+
+      console.log('Investment: ' + investment + ' preLuck: ' + preLuck + ' Score: ' + score + ' pre_roi: ' + pre_roi + ' roi: ' + roi);
 
       // Animation
       $('#infographic').fadeIn();
@@ -184,7 +186,6 @@
         data: {
           labels: ['Start of Round', 'Before Luck', 'End of Round'],
           datasets: [{
-            // Data needs to be linked to a function that generates these figures
             data: [investment, pre_roi, roi],
             label: "My Investment",
             borderColor: "#3e95cd",
