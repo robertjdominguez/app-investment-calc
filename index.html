@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js">
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" parseIntegrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="dist/js/smooth-scroll.js"></script>
+  <!-- TODO: Not working for transparency -->
+  <script src="dist/js/navbar-ontop.js"></script>
+  <title>Investment Calculator</title>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body style="background-color:#003554">
+  <div class="row"></div>
+  <div class="row">
+    <div class="col m12">
+      <div class="card z-depth-3 center-align white-text" style="background-color:#051923">
+        <div class="card-title">Investment Calculator</div>
+        <div class="card-content">
+          <p>
+            This calculator is used to determine how much money your investment firm (group) will make or lose during the course of our pitches today. <br> Invest your money wisely!
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m4"></div>
+      <div class="col m4">
+        <div class="card z-depth-2 center-align">
+          <div class="card-title">Investment Amount</div>
+          <div class="card-content">
+            <input placeholder="Investment" id="invest" type="text" class="validate">
+            <label for="conf">Don't include the $ or commas</label>
+          </div>
+        </div>
+      </div>
+      <div class="col m4"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col m12 center-align">
+      <div class="col m1"></div>
+      <div class="col m2">
+        <div class="card z-depth-1 center-align">
+          <div class="card-content">
+            <input placeholder="Confidence" id="conf" type="text" class="validate">
+            <label for="conf">1-15</label>
+          </div>
+        </div>
+      </div>
+      <div class="col m2">
+        <div class="card z-depth-1 center-align">
+          <div class="card-content">
+            <input placeholder="Feasibility" id="feas" type="text" class="validate">
+            <label for="feas">1-15</label>
+          </div>
+        </div>
+      </div>
+      <div class="col m2">
+        <div class="card z-depth-1 center-align">
+          <div class="card-content">
+            <input placeholder="Tech" id="tech" type="text" class="validate">
+            <label for="tech">1-15</label>
+          </div>
+        </div>
+      </div>
+      <div class="col m2">
+        <div class="card z-depth-1 center-align">
+          <div class="card-content">
+            <input placeholder="Demand" id="dem" type="text" class="validate">
+            <label for="dem">1-15</label>
+          </div>
+        </div>
+      </div>
+      <div class="col m2">
+        <div class="card z-depth-1 center-align">
+          <div class="card-content">
+            <input placeholder="Luck" id="luck" type="text" class="validate">
+            <label for="luck">0 or 40</label>
+          </div>
+        </div>
+      </div>
+      <div class="col m1"></div>
+    </div>
+  </div>
+
+  <div class="row center-align">
+    <a data-scroll href="#infographic" class="waves-effect waves-light btn" onclick="getData();">Run</a>
+  </div>
+
+  <div class="row" id="infographic" style="display:none">
+    <div class="col m2"></div>
+    <div class="col m8">
+      <div class="card z-depth-5 center-align">
+        <div class="card-title">ROI</div>
+        <div class="card-content">
+          <div class="row">
+            <strong>ROI: Return on Investment</strong> - how much money you make based on the conditions listed above.
+          </div>
+          <div class="row">
+            <canvas id="line-chart" width="800" height="450"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col m2"></div>
+  </div>
+
+
+  <!--  Scripts-->
+  <script type="text/javascript">
+    function getData() {
+      /*
+      Math! Sum together all elements from text-inputs and then use if-else
+      statements to determine the score
+      */
+      // Value summation
+      let investment = parseInt($('#invest').val());
+      let conf = $('#conf').val();
+      let feas = $('#feas').val();
+      let tech = $('#tech').val();
+      let demand = $('#dem').val();
+      let luck = $('#luck').val();
+
+      let score = parseInt(conf) + parseInt(feas) + parseInt(tech) + parseInt(demand) + parseInt(luck);
+
+      // if-else statements to determine "score"
+      if (score > 99) {
+        roi = score * 3;
+      } else if (score > 89 && score < 99) {
+        roi = investment * 2;
+      } else if (score > 79 && score < 90) {
+        roi = investment * 1;
+      } else if (score > 69 && score < 80) {
+        roi = investment * .5;
+      } else if (score > 59 && score < 70) {
+        roi = investment * .25;
+      } else {
+        roi = investment * 0;
+      }
+
+      // Animation
+      $('#infographic').fadeIn();
+
+      // Chart
+      new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+          labels: ['Start of Round', 'End of Round'],
+          datasets: [{
+            // Data needs to be linked to a function that generates these figures
+            data: [investment, roi],
+            label: "My Investment",
+            borderColor: "#3e95cd",
+            fill: false
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'ROI in millions (USD)'
+          }
+        }
+      });
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+</body>
+
+</html>
