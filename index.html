@@ -115,7 +115,7 @@
     </div>
     <div class="row">
       <div class="row center-align">
-        <a href="https://robertjdominguez.github.io/app-investment-calc/" class="waves-effect red waves-light btn" onclick="fade();">Reset</a>
+        <a class="waves-effect red waves-light btn" onclick="fade();">Reset</a>
       </div>
     </div>
   </div>
@@ -126,7 +126,8 @@
   <script type="text/javascript">
     
     function fade() {
-      $(document).fadeOut();
+      $(document).fadeOut(500);
+      window.location.replace('https://robertjdominguez.github.io/app-investment-calc/');
     }
     
     function getData() {
